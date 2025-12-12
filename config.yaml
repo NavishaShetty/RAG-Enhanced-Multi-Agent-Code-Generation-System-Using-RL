@@ -1,0 +1,29 @@
+# API Configuration
+api:
+  provider: "openrouter"
+  base_url: "https://openrouter.ai/api/v1"
+  model: "amazon/nova-2-lite-v1:free"  # Free model on OpenRouter
+  api_key: "${OPENROUTER_API_KEY}"  # Use environment variable
+  max_tokens: 2048
+  temperature: 0.7
+
+# RL Hyperparameters
+rl:
+  alpha: 0.1          # Learning rate
+  gamma: 0.95         # Discount factor
+  epsilon: 0.1        # Exploration rate (for epsilon-greedy baseline)
+  num_episodes: 5000  # Training episodes
+  eval_every: 100     # Evaluation frequency
+
+# Environment
+environment:
+  max_iterations: 5   # Max steps per episode
+  code_timeout: 5     # Seconds to run code
+
+# Simulation probabilities (calibrate from real data)
+simulation:
+  planner_success: 0.95
+  coder_success_with_plan: 0.70
+  coder_success_without_plan: 0.30
+  tester_finds_error: 0.40
+  debugger_fixes_error: 0.50

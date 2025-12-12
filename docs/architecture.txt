@@ -1,0 +1,126 @@
+RAG-Enhanced Multi-Agent Code Generation System - Architecture
+=============================================================
+
+                           ┌─────────────────────┐
+                           │    User Input       │
+                           │  (Task Description) │
+                           └──────────┬──────────┘
+                                      │
+                           ┌──────────▼──────────┐
+                           │   Streamlit UI      │
+                           │   (app.py)          │
+                           └──────────┬──────────┘
+                                      │
+              ┌───────────────────────▼───────────────────────┐
+              │              RL Orchestrator                   │
+              │         (Q-Learning + Thompson Sampling)       │
+              │         rl/combined_agent.py                   │
+              └───────────────────────┬───────────────────────┘
+                                      │
+         ┌────────────────────────────┼────────────────────────────┐
+         │                            │                            │
+         ▼                            ▼                            ▼
+┌─────────────────┐       ┌─────────────────┐       ┌─────────────────┐
+│   RAG System    │       │   Blackboard    │       │     Tools       │
+│   (rag/)        │       │ communication/  │       │   (tools/)      │
+│                 │       │ blackboard.py   │       │                 │
+│  ┌───────────┐  │       │                 │       │  ┌───────────┐  │
+│  │ ChromaDB  │  │       │  Message Types: │       │  │ Executor  │  │
+│  │vector_    │  │       │  - TASK         │       │  │           │  │
+│  │store.py   │  │       │  - PLAN         │       │  └───────────┘  │
+│  └───────────┘  │       │  - CODE         │       │  ┌───────────┐  │
+│  ┌───────────┐  │       │  - TEST_RESULT  │       │  │ Test      │  │
+│  │Sentence   │  │       │  - ERROR        │       │  │ Runner    │  │
+│  │Transformer│  │       │  - FEEDBACK     │       │  └───────────┘  │
+│  └───────────┘  │       │  - DEBUG        │       │  ┌───────────┐  │
+│  ┌───────────┐  │       │                 │       │  │Complexity │  │
+│  │Knowledge  │  │       │                 │       │  │ Analyzer  │  │
+│  │Base (.md) │  │       │                 │       │  └───────────┘  │
+│  └───────────┘  │       │                 │       │                 │
+└────────┬────────┘       └────────┬────────┘       └─────────────────┘
+         │                         │
+         │         ┌───────────────┼───────────────┐
+         │         │               │               │
+         │         ▼               ▼               ▼
+         │    ┌─────────┐    ┌─────────┐    ┌─────────┐
+         │    │ Planner │    │ Tester  │    │Debugger │
+         │    │ Agent   │    │ Agent   │    │ Agent   │
+         │    │         │    │         │    │         │
+         │    │ Breaks  │    │ Runs    │    │ Fixes   │
+         │    │ down    │    │ tests   │    │ bugs    │
+         │    │ tasks   │    │ on code │    │ in code │
+         │    └─────────┘    └─────────┘    └─────────┘
+         │
+         │    ┌─────────────────────────────────────────┐
+         └───▶│              Coder Agent                │
+              │         (RAG-Enhanced Prompts)          │
+              │                                         │
+              │  Input:                                 │
+              │  - Task description                     │
+              │  - Plan (optional)                      │
+              │  - RAG context (relevant examples)      │
+              │                                         │
+              │  Output:                                │
+              │  - Python code                          │
+              └─────────────────────────────────────────┘
+                                      │
+                           ┌──────────▼──────────┐
+                           │   Generated Code    │
+                           │   + Test Results    │
+                           │   + Complexity      │
+                           │     Metrics         │
+                           └─────────────────────┘
+
+
+Data Flow:
+==========
+
+1. User enters task description in Streamlit UI
+2. RL Orchestrator decides which agent to invoke based on current state
+3. If Coder is selected:
+   a. RAG retrieves relevant examples from knowledge base
+   b. Context is injected into Coder's prompt
+   c. LLM generates code
+4. If Tester is selected:
+   a. Code is executed with test cases
+   b. Results are posted to Blackboard
+5. If Debugger is selected:
+   a. Error messages from Blackboard are used
+   b. LLM fixes the code
+6. Process repeats until tests pass or max iterations reached
+
+
+State Space (64 states):
+========================
+- has_plan: bool (2 values)
+- has_code: bool (2 values)
+- has_error: bool (2 values)
+- tests_pass: bool (2 values)
+- iteration_bucket: 0-3 (4 values)
+
+Total: 2 × 2 × 2 × 2 × 4 = 64 states
+
+
+Action Space (4 actions):
+=========================
+- planner: Generate task plan
+- coder: Write code (with RAG context)
+- tester: Run tests on code
+- debugger: Fix errors in code
+
+
+File Structure:
+===============
+rag/
+├── __init__.py
+├── config.py           # RAG configuration
+├── knowledge_base.py   # Document loading
+├── vector_store.py     # ChromaDB wrapper
+└── retriever.py        # Retrieval interface
+
+knowledge_base/
+├── python_basics.md    # Fundamentals
+├── python_patterns.md  # Design patterns
+├── python_stdlib.md    # Standard library
+├── best_practices.md   # Code quality
+└── error_handling.md   # Exception patterns
