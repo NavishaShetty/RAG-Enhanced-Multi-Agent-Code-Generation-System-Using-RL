@@ -12,9 +12,9 @@ RAG-Enhanced Multi-Agent Code Generation System - Architecture
                            └──────────┬──────────┘
                                       │
               ┌───────────────────────▼───────────────────────┐
-              │              RL Orchestrator                   │
-              │         (Q-Learning + Thompson Sampling)       │
-              │         rl/combined_agent.py                   │
+              │              RL Orchestrator                  │
+              │         (Q-Learning + Thompson Sampling)      │
+              │         rl/combined_agent.py                  │
               └───────────────────────┬───────────────────────┘
                                       │
          ┌────────────────────────────┼────────────────────────────┐

@@ -146,6 +146,9 @@ RAG-Enhanced-Multi-Agent-Code-Generation-System-Using-RL/
 ├── orchestrator/             # Pipeline orchestration
 │   └── fixed_pipeline.py     # Fixed agent sequence pipeline
 │
+├── utils/                    # Utility modules
+│   └── api.py                # OpenRouter API client
+│
 ├── training/                 # Training scripts
 │   ├── train_simulated.py    # Train on simulation
 │   ├── validate_real.py      # Validate with real LLM
@@ -154,6 +157,12 @@ RAG-Enhanced-Multi-Agent-Code-Generation-System-Using-RL/
 ├── visualization/            # Plotting
 │   ├── learning_curves.py    # Training progress plots
 │   └── q_table_viz.py        # Q-value heatmap
+│
+├── demo/                     # Demo scripts
+│   └── demo.py               # Command line demo
+│
+├── experiments/              # Experiment outputs
+│   └── results/              # Saved Q-tables, metrics
 │
 ├── scripts/                  # Utility scripts
 │   ├── sanity_check.py       # API verification
@@ -169,13 +178,11 @@ RAG-Enhanced-Multi-Agent-Code-Generation-System-Using-RL/
 │
 ├── docs/                     # Documentation (NEW)
 │   ├── index.html            # GitHub Pages website
-│   └── architecture.png      # Architecture diagram
+│   └── architecture.txt      # Architecture diagram (Mermaid)
 │
-├── chroma_db/                # Vector store data (NEW, gitignored)
-│
-├── app.py                    # Streamlit entry point (NEW)
+├── app.py                    # Streamlit entry point
 ├── config.yaml               # Configuration file
-├── requirements.txt          # Python dependencies (updated)
+├── requirements.txt          # Python dependencies
 └── README.md                 # This file
 ```
 
