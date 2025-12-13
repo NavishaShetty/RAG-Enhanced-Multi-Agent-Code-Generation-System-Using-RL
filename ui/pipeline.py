@@ -49,6 +49,7 @@ class UIPipeline:
         use_rag: bool = True,
         use_rl: bool = True,
         max_iterations: int = 5,
+        api_key: Optional[str] = None,
     ):
         """
         Initialize the UI pipeline.
@@ -57,10 +58,12 @@ class UIPipeline:
             use_rag: Whether to use RAG for context retrieval
             use_rl: Whether to use RL policy for orchestration
             max_iterations: Maximum number of agent iterations
+            api_key: OpenRouter API key (optional, falls back to env var)
         """
         self.use_rag = use_rag
         self.use_rl = use_rl
         self.max_iterations = max_iterations
+        self.api_key = api_key
 
         # Initialize components (lazy loading)
         self._blackboard: Optional[Blackboard] = None
@@ -107,13 +110,14 @@ class UIPipeline:
 
         # Initialize agents
         self._agents = {
-            'planner': PlannerAgent(),
+            'planner': PlannerAgent(api_key=self.api_key),
             'coder': CoderAgent(
                 retriever=self._retriever,
-                use_rag=self.use_rag and self._retriever is not None
+                use_rag=self.use_rag and self._retriever is not None,
+                api_key=self.api_key
             ),
-            'tester': TesterAgent(),
-            'debugger': DebuggerAgent(),
+            'tester': TesterAgent(api_key=self.api_key),
+            'debugger': DebuggerAgent(api_key=self.api_key),
         }
 
         logger.info("Agents initialized")
@@ -265,7 +269,8 @@ class UIPipeline:
         # Re-initialize coder with current retriever
         self._agents['coder'] = CoderAgent(
             retriever=self._retriever,
-            use_rag=self.use_rag and self._retriever is not None
+            use_rag=self.use_rag and self._retriever is not None,
+            api_key=self.api_key
         )
 
         self._log("System", f"Received task: {task[:100]}...")
