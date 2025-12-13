@@ -22,6 +22,7 @@ Interactive web interface featuring:
 - Complexity metrics dashboard
 - RAG context inspection
 
+### System Architecture
 <img width="944" height="1318" alt="image" src="https://github.com/user-attachments/assets/fe7b565a-532f-40d9-8d91-888f363c93df" />
 
 ## Features
