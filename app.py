@@ -51,6 +51,23 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
+def get_api_key():
+    """Get API key from Streamlit secrets or environment variable."""
+    try:
+        return st.secrets["OPENROUTER_API_KEY"]
+    except (KeyError, FileNotFoundError):
+        return os.getenv("OPENROUTER_API_KEY")
+
+
+@st.cache_resource
+def initialize_rag_system():
+    """Initialize RAG system once at app startup."""
+    from rag.retriever import Retriever
+    retriever = Retriever()
+    retriever.initialize()
+    return retriever
+
+
 def init_session_state():
     """Initialize session state variables."""
     if 'pipeline' not in st.session_state:
@@ -219,13 +236,17 @@ def run_generation(task: str, use_rag: bool, use_rl: bool, max_iter: int):
     st.session_state.metrics = {}
     st.session_state.rag_context = ""
 
+    # Get API key
+    api_key = get_api_key()
+
     # Initialize pipeline
     if st.session_state.pipeline is None:
         with st.spinner("Initializing system..."):
             st.session_state.pipeline = UIPipeline(
                 use_rag=use_rag,
                 use_rl=use_rl,
-                max_iterations=max_iter
+                max_iterations=max_iter,
+                api_key=api_key
             )
             st.session_state.pipeline.initialize()
     else:
@@ -333,6 +354,10 @@ def render_agent_activity():
 def main():
     """Main application entry point."""
     init_session_state()
+
+    # Initialize RAG system at startup (cached - only runs once)
+    with st.spinner("Initializing RAG system..."):
+        initialize_rag_system()
 
     # Sidebar
     render_sidebar()
