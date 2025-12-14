@@ -22,8 +22,6 @@ Interactive web interface featuring:
 - Complexity metrics dashboard
 - RAG context inspection
 
-**[Try it live](https://multi-agent-code-generation.streamlit.app/)**
-
 ![Architecture](docs/Architecture Diagram.png)
 
 ## Features
