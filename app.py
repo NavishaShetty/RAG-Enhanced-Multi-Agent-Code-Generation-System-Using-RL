@@ -148,6 +148,7 @@ def render_sidebar():
     # Links
     st.sidebar.subheader("▶️ Links")
     st.sidebar.markdown("[ GitHub Repository](https://github.com/NavishaShetty/RAG-Enhanced-Multi-Agent-Code-Generation-System-Using-RL)")
+    st.sidebar.markdown("[ Blog Post](https://navishashetty.github.io./blog/posts/rag-multi-agent-code-gen.html)")
     st.sidebar.markdown("[ Documentation](https://github.com/NavishaShetty/RAG-Enhanced-Multi-Agent-Code-Generation-System-Using-RL/blob/main/docs/Technical%20Report.pdf)")
 
 

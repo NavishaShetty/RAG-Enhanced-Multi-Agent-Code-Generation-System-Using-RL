@@ -15,7 +15,7 @@ The system includes a Retrieval-Augmented Generation (RAG) module that:
 - Retrieves relevant context for each coding task
 - Injects context into the Coder agent's prompt for better code quality
 
-### Streamlit Web Interface -- **[Try it live](https://multi-agent-code-generation.streamlit.app/)**
+### Streamlit Web Interface -> **[Try it live](https://multi-agent-code-generation.streamlit.app/)**
 Interactive web interface featuring:
 - Real-time agent activity visualization
 - Code output with syntax highlighting
