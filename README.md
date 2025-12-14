@@ -1,5 +1,13 @@
 # RAG-Enhanced Multi-Agent Code Generation System Using RL
 
+<div align="center">
+  <img src="https://img.shields.io/badge/Multi--Agent%20System-4%20Agents-purple" alt="Multi-Agent System" />
+  <img src="https://img.shields.io/badge/Prompt%20Engineering-LLM-4ECDC4" alt="Prompt Engineering" />
+  <img src="https://img.shields.io/badge/RAG-ChromaDB-orange" alt="RAG" />
+  <img src="https://img.shields.io/badge/RL-Q--Learning%20%2B%20Thompson%20Sampling-FF6B6B" alt="RL" />
+  <img src="https://img.shields.io/badge/UI-Streamlit-FF4B4B?logo=streamlit&logoColor=white" alt="Streamlit" />
+</div>
+
 A Reinforcement Learning-based orchestrator for a multi-agent code generation system, enhanced with Retrieval-Augmented Generation (RAG) for improved code quality. The RL agent learns to optimally coordinate four specialized LLM agents (Planner, Coder, Tester, Debugger) to solve coding tasks efficiently.
 
 ## Core Concept
