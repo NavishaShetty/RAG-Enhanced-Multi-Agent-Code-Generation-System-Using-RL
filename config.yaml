@@ -2,7 +2,7 @@
 api:
   provider: "openrouter"
   base_url: "https://openrouter.ai/api/v1"
-  model: "groq/llama-3.3-70b-versatile"  # Free model on OpenRouter
+  model: "meta-llama/llama-3.3-70b-instruct"  # LLM model on OpenRouter
   api_key: "${OPENROUTER_API_KEY}"  # Use environment variable
   max_tokens: 2048
   temperature: 0.7
