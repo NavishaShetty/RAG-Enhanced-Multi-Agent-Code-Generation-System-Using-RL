@@ -49,11 +49,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-```
-
-**Step 3:** Create `requirements.txt` in the root folder
-
-Same process — create new file, name it `requirements.txt`, paste:
-```
-selenium
-webdriver-manager
