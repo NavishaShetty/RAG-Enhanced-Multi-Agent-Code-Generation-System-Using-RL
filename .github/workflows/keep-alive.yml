@@ -1,0 +1,18 @@
+name: Keep Streamlit Alive
+
+on:
+  schedule:
+    - cron: '0 */3 * * *' 
+  workflow_dispatch:  
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Streamlit app
+        run: |
+          echo "Waking up Streamlit app..."
+          curl -s -o /dev/null -w "%{http_code}" https://multi-agent-code-generation.streamlit.app
+          sleep 10
+          curl -s -o /dev/null -w "%{http_code}" https://multi-agent-code-generation.streamlit.app
+          echo "Done!"
